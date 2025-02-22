@@ -7,9 +7,12 @@ from PIL import Image
 # Load environment variables from .env file
 load_dotenv()
 
-API_URL = "https://api-inference.huggingface.co/models/ZB-Tech/Text-to-Image"
-headers = {"Authorization": f"Bearer {os.getenv('hf_token')}"}
-
+API_URL = "https://api-inference.huggingface.co/models/black-forest-labs/FLUX.1-dev"
+hf_token = os.getenv('hf_token')
+if not hf_token:
+    raise ValueError("Hugging Face token not found. Please set it in the .env file.")
+headers = {"Authorization": f"Bearer {hf_token}"}
+# print(hf_token)
 
 def query(payload):
     response = requests.post(API_URL, headers=headers, json=payload)
@@ -17,13 +20,11 @@ def query(payload):
     return response.content
 
 image_bytes = query({
-    "inputs": "give me the image of a room without any elephants", 
+    "inputs": "horse",
 })
 
-# You can access the image with PIL.Image for example
 image = Image.open(io.BytesIO(image_bytes))
 
 # Save the image
 image.save("generated_image.png")
-
 print("Image saved as generated_image.png")
