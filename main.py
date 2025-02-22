@@ -1,5 +1,7 @@
 from transformers import AutoModelForCausalLM, AutoTokenizer, pipeline
+from dotenv import load_dotenv
 import os
+load_dotenv()
 
 model_name = "meta-llama/Llama-2-7b-hf"
 hf_token =  os.getenv("hf_token")
