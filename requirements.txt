@@ -1,6 +1,2 @@
-transformers
+requests
 python-dotenv
-accelerate
-torch
-torchvision
-torchaudio
